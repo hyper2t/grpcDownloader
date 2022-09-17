@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "../pb";
+import "google/protobuf/any.proto";
+
+message Chunk {
+  bytes data = 1;
+}
+
+message Packet {
+  Info info = 1;
+  Chunk chunk = 2;
+}
+
+message Info {
+  google.protobuf.Any msg   = 1;
+}
+
+service DownloadService {
+
+  // client always download a big file from the server.
+  rpc Download(Info) returns (stream Packet) {}
+}
