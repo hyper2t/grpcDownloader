@@ -9,6 +9,7 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
+	"log"
 )
 
 // BytesStreamer represents an interface for bytes streaming.
@@ -55,6 +56,7 @@ type BytesTransferServer struct {
 
 func (s *BytesTransferServer) Download(in *pb.Info, stream pb.DownloadService_DownloadServer) (errout error) {
 
+	log.Println("receive info: ", in)
 	if stream.Context().Err() == context.Canceled {
 		return status.Errorf(codes.Canceled, "client cancelled, abandoning")
 	}

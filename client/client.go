@@ -19,6 +19,7 @@ func Start() {
 	client := pb.NewDownloadServiceClient(conn)
 	fromInfo := &pb.File{Path: "/root/Go.zip"}
 	toInfo := &pb.File{Path: "/root/Go.zip"}
+	log.Println("start download file: ", fromInfo.GetPath())
 	if err := Download(client, context.Background(), fromInfo, toInfo, &fi.Downloader{}); err != nil {
 		log.Fatalf("client failed: %v", err)
 	}

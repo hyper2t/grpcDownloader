@@ -8,6 +8,7 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 	"io"
+	"log"
 )
 
 // BytesReceiver represents an interface for bytes reception.
@@ -69,6 +70,7 @@ func Download(client pb.DownloadServiceClient, ctx context.Context, fileStreamer
 			res, err := stream.Recv()
 			if err == io.EOF {
 				errch <- nil
+				log.Println("client recv stream finished.")
 				return
 			}
 			if err != nil {
